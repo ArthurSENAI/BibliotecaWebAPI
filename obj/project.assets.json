@@ -4996,11 +4996,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Aluno Noite\\source\\repos\\BibliotecaWebAPI\\BibliotecaWebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\BibliotecaWebAPI.csproj",
       "projectName": "BibliotecaWebAPI",
-      "projectPath": "C:\\Users\\Aluno Noite\\source\\repos\\BibliotecaWebAPI\\BibliotecaWebAPI.csproj",
+      "projectPath": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\BibliotecaWebAPI.csproj",
       "packagesPath": "C:\\Users\\Aluno Noite\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Aluno Noite\\source\\repos\\BibliotecaWebAPI\\obj\\",
+      "outputPath": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Aluno Noite\\AppData\\Roaming\\NuGet\\NuGet.Config",
