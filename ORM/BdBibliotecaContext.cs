@@ -104,10 +104,7 @@ public partial class BdBibliotecaContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("autor");
-            entity.Property(e => e.Disponibilidade)
-                .HasMaxLength(50)
-                .IsFixedLength()
-                .HasColumnName("disponibilidade");
+            entity.Property(e => e.Disponibilidade).HasColumnName("disponibilidade");
             entity.Property(e => e.FkCategoria).HasColumnName("fkCategoria");
             entity.Property(e => e.Titulo)
                 .HasMaxLength(50)

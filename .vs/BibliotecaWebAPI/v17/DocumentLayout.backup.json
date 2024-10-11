@@ -7,24 +7,8 @@
       "RelativeMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|c:\\users\\aluno noite\\documents\\github\\bibliotecawebapi\\controllers\\funcionariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|solutionrelative:controllers\\funcionariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|c:\\users\\aluno noite\\documents\\github\\bibliotecawebapi\\repositorio\\funcionariorepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|solutionrelative:repositorio\\funcionariorepositorio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|c:\\users\\aluno noite\\documents\\github\\bibliotecawebapi\\model\\funcionariodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|solutionrelative:model\\funcionariodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|c:\\users\\aluno noite\\documents\\github\\bibliotecawebapi\\model\\funcionario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|solutionrelative:model\\funcionario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|c:\\users\\aluno noite\\documents\\github\\bibliotecawebapi\\orm\\tbfuncionario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|solutionrelative:orm\\tbfuncionario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|c:\\users\\aluno noite\\documents\\github\\bibliotecawebapi\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1A7C2601-78E6-4414-BD9D-62AEAB6FD6D7}|BibliotecaWebAPI.csproj|solutionrelative:controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -44,74 +28,22 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAABQAAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAADwv2QAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T20:02:43.057Z",
+              "WhenOpened": "2024-10-11T20:07:24.236Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "FuncionarioController.cs",
-              "DocumentMoniker": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\Controllers\\FuncionarioController.cs",
-              "RelativeDocumentMoniker": "Controllers\\FuncionarioController.cs",
-              "ToolTip": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\Controllers\\FuncionarioController.cs",
-              "RelativeToolTip": "Controllers\\FuncionarioController.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAowJAAAAAqAAAAAAAAAA==",
+              "Title": "UsuarioController.cs",
+              "DocumentMoniker": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\Controllers\\UsuarioController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UsuarioController.cs",
+              "ToolTip": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\Controllers\\UsuarioController.cs",
+              "RelativeToolTip": "Controllers\\UsuarioController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADkAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T19:48:25.559Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "FuncionarioRepositorio.cs",
-              "DocumentMoniker": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\Repositorio\\FuncionarioRepositorio.cs",
-              "RelativeDocumentMoniker": "Repositorio\\FuncionarioRepositorio.cs",
-              "ToolTip": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\Repositorio\\FuncionarioRepositorio.cs",
-              "RelativeToolTip": "Repositorio\\FuncionarioRepositorio.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T19:40:20.733Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FuncionarioDto.cs",
-              "DocumentMoniker": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\Model\\FuncionarioDto.cs",
-              "RelativeDocumentMoniker": "Model\\FuncionarioDto.cs",
-              "ToolTip": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\Model\\FuncionarioDto.cs",
-              "RelativeToolTip": "Model\\FuncionarioDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T19:39:30.121Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "TbFuncionario.cs",
-              "DocumentMoniker": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\ORM\\TbFuncionario.cs",
-              "RelativeDocumentMoniker": "ORM\\TbFuncionario.cs",
-              "ToolTip": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\ORM\\TbFuncionario.cs",
-              "RelativeToolTip": "ORM\\TbFuncionario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T19:38:43.003Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Funcionario.cs",
-              "DocumentMoniker": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\Model\\Funcionario.cs",
-              "RelativeDocumentMoniker": "Model\\Funcionario.cs",
-              "ToolTip": "C:\\Users\\Aluno Noite\\Documents\\GitHub\\BibliotecaWebAPI\\Model\\Funcionario.cs",
-              "RelativeToolTip": "Model\\Funcionario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T19:36:20.579Z",
+              "WhenOpened": "2024-10-11T20:05:41.114Z",
               "EditorCaption": ""
             }
           ]
