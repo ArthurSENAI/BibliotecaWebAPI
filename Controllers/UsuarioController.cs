@@ -3,6 +3,7 @@ using BibliotecaWebAPI.ORM;
 using BibliotecaWebAPI.Repositorio;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -25,16 +26,23 @@ namespace BibliotecaWebAPI.Controllers
         [HttpPost("login")]
         public ActionResult<string> Login([FromBody] UsuarioDto usuarioDto)
         {
-            // Verifica as credenciais
-            var usuario = _usuarioRepo.GetByCredentials(usuarioDto.Nome, usuarioDto.Senha);
-            if (usuario == null)
+            try
             {
-                return Unauthorized();
-            }
+                // Verifica as credenciais
+                var usuario = _usuarioRepo.GetByCredentials(usuarioDto.Usuario, usuarioDto.Senha);
+                if (usuario == null)
+                {
+                    return Unauthorized(new { Mensagem = "Credenciais inválidas." });
+                }
 
-            // Gera o token JWT
-            var token = GenerateJwtToken(usuario);
-            return Ok(new { Token = token });
+                // Gera o token JWT
+                var token = GenerateJwtToken(usuario);
+                return Ok(new { Token = token });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Mensagem = "Erro ao realizar login.", Erro = ex.Message });
+            }
         }
 
         private string GenerateJwtToken(TbUsuario usuario)
@@ -45,9 +53,9 @@ namespace BibliotecaWebAPI.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-            new Claim(ClaimTypes.Name, usuario.Usuario), // Adaptar conforme o campo correto
-            new Claim(JwtRegisteredClaimNames.Aud, "http://localhost:7025"), // Definindo a audiência
-            new Claim(JwtRegisteredClaimNames.Iss, "http://localhost:7025")  // Definindo o emissor
+                    new Claim(ClaimTypes.Name, usuario.Usuario), // Adaptar conforme o campo correto
+                    new Claim(JwtRegisteredClaimNames.Aud, "http://localhost:7025"), // Definindo a audiência
+                    new Claim(JwtRegisteredClaimNames.Iss, "http://localhost:7025")  // Definindo o emissor
                 }),
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

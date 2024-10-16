@@ -2,8 +2,9 @@
 using BibliotecaWebAPI.Repositorio;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BibliotecaWebAPI.Controllers
 {
@@ -23,161 +24,169 @@ namespace BibliotecaWebAPI.Controllers
         [HttpGet]
         public ActionResult<List<Membro>> GetAll()
         {
-            // Chama o repositório para obter todos os membros
-            var membros = _membroRepo.GetAll();
-
-            // Verifica se a lista de membros está vazia
-            if (membros == null || !membros.Any())
+            try
             {
-                return NotFound(new { Mensagem = "Nenhum membro encontrado." });
+                var membros = _membroRepo.GetAll();
+
+                if (membros == null || !membros.Any())
+                {
+                    return NotFound(new { Mensagem = "Nenhum membro encontrado." });
+                }
+
+                var listaMem = membros.Select(membro => new Membro
+                {
+                    Id = membro.Id,
+                    Nome = membro.Nome,
+                    Telefone = membro.Telefone,
+                    Email = membro.Email,
+                    TipoMembro = membro.TipoMembro,
+                    DataCadastro = membro.DataCadastro
+                }).ToList();
+
+                return Ok(listaMem);
             }
-
-            // Mapeia a lista de clientes para incluir a URL da foto
-            var listaMem = membros.Select(membro => new Membro
+            catch (Exception ex)
             {
-                Id = membro.Id,
-                Nome = membro.Nome,
-                Telefone = membro.Telefone,
-                Email = membro.Email,
-                TipoMembro = membro.TipoMembro,
-                DataCadastro = membro.DataCadastro
-
-            }).ToList();
-
-            // Retorna a lista de clientes com status 200 OK
-            return Ok(listaMem);
+                return StatusCode(500, new { Mensagem = "Erro ao buscar membros.", Erro = ex.Message });
+            }
         }
 
         // GET: api/Membro/{id}
         [HttpGet("{id}")]
         public ActionResult<Membro> GetById(int id)
         {
-            // Chama o repositório para obter o membro pelo ID
-            var membro = _membroRepo.GetById(id);
-
-            // Se o membro não for encontrado, retorna uma resposta 404
-            if (membro == null)
+            try
             {
-                return NotFound(new { Mensagem = "Membro não encontrado." }); // Retorna 404 com mensagem
+                var membro = _membroRepo.GetById(id);
+
+                if (membro == null)
+                {
+                    return NotFound(new { Mensagem = "Membro não encontrado." });
+                }
+
+                var membroId = new Membro
+                {
+                    Id = membro.Id,
+                    Nome = membro.Nome,
+                    Telefone = membro.Telefone,
+                    Email = membro.Email,
+                    TipoMembro = membro.TipoMembro,
+                    DataCadastro = membro.DataCadastro
+                };
+
+                return Ok(membroId);
             }
-
-            // Mapeia o membro encontrado para incluir a URL da foto
-            var membroId = new Membro
+            catch (Exception ex)
             {
-                Id = membro.Id,
-                Nome = membro.Nome,
-                Telefone = membro.Telefone,
-                Email = membro.Email,
-                TipoMembro = membro.TipoMembro,
-                DataCadastro = membro.DataCadastro
-            };
-
-            // Retorna o membro com status 200 OK
-            return Ok(membroId);
+                return StatusCode(500, new { Mensagem = "Erro ao buscar membro.", Erro = ex.Message });
+            }
         }
 
         // POST api/<MembroController>
         [HttpPost]
         public ActionResult<object> Post([FromForm] MembroDto novoMembro)
         {
-            // Cria uma nova instância do modelo membro a partir do DTO recebido
-            var membro = new Membro
+            try
             {
-                Nome = novoMembro.Nome,
-                Telefone = novoMembro.Telefone,
-                Email = novoMembro.Email,
-                TipoMembro = novoMembro.TipoMembro,
-                DataCadastro = novoMembro.DataCadastro
-            };
+                var membro = new Membro
+                {
+                    Nome = novoMembro.Nome,
+                    Telefone = novoMembro.Telefone,
+                    Email = novoMembro.Email,
+                    TipoMembro = novoMembro.TipoMembro,
+                    DataCadastro = novoMembro.DataCadastro
+                };
 
-            // Chama o método de adicionar do repositório, passando a foto como parâmetro
-            _membroRepo.Add(membro);
+                _membroRepo.Add(membro);
 
-            // Cria um objeto anônimo para retornar
-            var resultado = new
+                var resultado = new
+                {
+                    Mensagem = "Membro cadastrado com sucesso!",
+                    Nome = membro.Nome,
+                    Telefone = membro.Telefone,
+                    Email = membro.Email,
+                    TipoMembro = membro.TipoMembro,
+                    DataCadastro = membro.DataCadastro
+                };
+
+                return Ok(resultado);
+            }
+            catch (Exception ex)
             {
-                Mensagem = "Membro cadastrado com sucesso!",
-                Nome = membro.Nome,
-                Telefone = membro.Telefone,
-                Email = membro.Email,
-                TipoMembro = membro.TipoMembro,
-                DataCadastro = membro.DataCadastro
-            };
-
-            // Retorna o objeto com status 200 OK
-            return Ok(resultado);
+                return StatusCode(500, new { Mensagem = "Erro ao cadastrar membro.", Erro = ex.Message });
+            }
         }
 
         // PUT api/<MembroController>/5
         [HttpPut("{id}")]
         public ActionResult<object> Put(int id, [FromForm] MembroDto membroAtualizado)
         {
-            // Busca o membro existente pelo Id
-            var membroExistente = _membroRepo.GetById(id);
-
-            // Verifica se o membro foi encontrado
-            if (membroExistente == null)
+            try
             {
-                return NotFound(new { Mensagem = "Membro não encontrado." });
+                var membroExistente = _membroRepo.GetById(id);
+
+                if (membroExistente == null)
+                {
+                    return NotFound(new { Mensagem = "Membro não encontrado." });
+                }
+
+                membroExistente.Nome = membroAtualizado.Nome;
+                membroExistente.Telefone = membroAtualizado.Telefone;
+                membroExistente.Email = membroAtualizado.Email;
+                membroExistente.TipoMembro = membroAtualizado.TipoMembro;
+                membroExistente.DataCadastro = membroAtualizado.DataCadastro;
+
+                _membroRepo.Update(membroExistente);
+
+                var resultado = new
+                {
+                    Mensagem = "Membro atualizado com sucesso!",
+                    Nome = membroExistente.Nome,
+                    Telefone = membroExistente.Telefone,
+                    Email = membroExistente.Email,
+                    TipoMembro = membroExistente.TipoMembro,
+                    DataCadastro = membroExistente.DataCadastro
+                };
+
+                return Ok(resultado);
             }
-
-            // Atualiza os dados do membro existente com os valores do objeto recebido
-            membroExistente.Nome = membroAtualizado.Nome;
-            membroExistente.Telefone = membroAtualizado.Telefone;
-            membroExistente.Email = membroAtualizado.Email;
-            membroExistente.TipoMembro = membroAtualizado.TipoMembro;
-            membroExistente.DataCadastro = membroAtualizado.DataCadastro;
-
-
-            // Chama o método de atualização do repositório, passando a nova foto
-            _membroRepo.Update(membroExistente);
-
-
-            // Cria um objeto anônimo para retornar
-            var resultado = new
+            catch (Exception ex)
             {
-                Mensagem = "Membro atualizado com sucesso!",
-                Nome = membroExistente.Nome,
-                Idade = membroExistente.Telefone,
-                Email = membroExistente.Email,
-                TipoMembro = membroExistente.TipoMembro,
-                DataCadastro = membroExistente.DataCadastro
-
-            };
-
-            // Retorna o objeto com status 200 OK
-            return Ok(resultado);
+                return StatusCode(500, new { Mensagem = "Erro ao atualizar membro.", Erro = ex.Message });
+            }
         }
 
         // DELETE api/<MembroController>/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            // Busca o membro existente pelo Id
-            var membroExistente = _membroRepo.GetById(id);
-
-            // Verifica se o membro foi encontrado
-            if (membroExistente == null)
+            try
             {
-                return NotFound(new { Mensagem = "Membro não encontrado." });
+                var membroExistente = _membroRepo.GetById(id);
+
+                if (membroExistente == null)
+                {
+                    return NotFound(new { Mensagem = "Membro não encontrado." });
+                }
+
+                _membroRepo.Delete(id);
+
+                var resultado = new
+                {
+                    Mensagem = "Membro excluído com sucesso!",
+                    Nome = membroExistente.Nome,
+                    Telefone = membroExistente.Telefone,
+                    Email = membroExistente.Email,
+                    TipoMembro = membroExistente.TipoMembro,
+                    DataCadastro = membroExistente.DataCadastro
+                };
+
+                return Ok(resultado);
             }
-
-            // Chama o método de exclusão do repositório
-            _membroRepo.Delete(id);
-
-            // Cria um objeto anônimo para retornar
-            var resultado = new
+            catch (Exception ex)
             {
-                Mensagem = "Membro excluído com sucesso!",
-                Nome = membroExistente.Nome,
-                Idade = membroExistente.Telefone,
-                Email = membroExistente.Email,
-                TipoMembro = membroExistente.TipoMembro,
-                DataCadastro = membroExistente.DataCadastro
-            };
-
-            // Retorna o objeto com status 200 OK
-            return Ok(resultado);
+                return StatusCode(500, new { Mensagem = "Erro ao excluir membro.", Erro = ex.Message });
+            }
         }
     }
 }

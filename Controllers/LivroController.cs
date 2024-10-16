@@ -2,8 +2,9 @@
 using BibliotecaWebAPI.Repositorio;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BibliotecaWebAPI.Controllers
 {
@@ -23,158 +24,167 @@ namespace BibliotecaWebAPI.Controllers
         [HttpGet]
         public ActionResult<List<Livro>> GetAll()
         {
-            // Chama o repositório para obter todos os livros
-            var livros = _livroRepo.GetAll();
-
-            // Verifica se a lista de livros está vazia
-            if (livros == null || !livros.Any())
+            try
             {
-                return NotFound(new { Mensagem = "Nenhum livro encontrado." });
+                var livros = _livroRepo.GetAll();
+
+                if (livros == null || !livros.Any())
+                {
+                    return NotFound(new { Mensagem = "Nenhum livro encontrado." });
+                }
+
+                var listaLiv = livros.Select(livro => new Livro
+                {
+                    Id = livro.Id,
+                    Titulo = livro.Titulo,
+                    Autor = livro.Autor,
+                    FkCategoria = livro.FkCategoria,
+                    Disponibilidade = livro.Disponibilidade
+                }).ToList();
+
+                return Ok(listaLiv);
             }
-
-            // Mapeia a lista de livro para incluir a URL da foto
-            var listaLiv = livros.Select(livro => new Livro
+            catch (Exception ex)
             {
-                Id = livro.Id,
-                Titulo = livro.Titulo,
-                Autor = livro.Autor,
-                FkCategoria = livro.FkCategoria,
-                Disponibilidade = livro.Disponibilidade
-
-
-            }).ToList();
-
-            // Retorna a lista de livro com status 200 OK
-            return Ok(listaLiv);
+                return StatusCode(500, new { Mensagem = "Erro ao buscar livros.", Erro = ex.Message });
+            }
         }
 
         // GET: api/Livro/{id}
         [HttpGet("{id}")]
         public ActionResult<Livro> GetById(int id)
         {
-            // Chama o repositório para obter o livro pelo ID
-            var livro = _livroRepo.GetById(id);
-
-            // Se o livro não for encontrado, retorna uma resposta 404
-            if (livro == null)
+            try
             {
-                return NotFound(new { Mensagem = "Livro não encontrado." }); // Retorna 404 com mensagem
+                var livro = _livroRepo.GetById(id);
+
+                if (livro == null)
+                {
+                    return NotFound(new { Mensagem = "Livro não encontrado." });
+                }
+
+                var livroId = new Livro
+                {
+                    Id = livro.Id,
+                    Titulo = livro.Titulo,
+                    Autor = livro.Autor,
+                    FkCategoria = livro.FkCategoria,
+                    Disponibilidade = livro.Disponibilidade
+                };
+
+                return Ok(livroId);
             }
-
-            // Mapeia o livro encontrado para incluir a URL da foto
-            var livroId = new Livro
+            catch (Exception ex)
             {
-                Id = livro.Id,
-                Titulo = livro.Titulo,
-                Autor = livro.Autor,
-                FkCategoria = livro.FkCategoria,
-                Disponibilidade = livro.Disponibilidade
-            };
-
-            // Retorna o livro com status 200 OK
-            return Ok(livroId);
+                return StatusCode(500, new { Mensagem = "Erro ao buscar livro.", Erro = ex.Message });
+            }
         }
 
         // POST api/<LivroController>
         [HttpPost]
         public ActionResult<object> Post([FromForm] LivroDto novoLivro)
         {
-            // Cria uma nova instância do modelo livro a partir do DTO recebido
-            var livro = new Livro
+            try
             {
-                Titulo = novoLivro.Titulo,
-                Autor = novoLivro.Autor,
-                AnoPublicacao = novoLivro.AnoPublicacao,
-                FkCategoria = novoLivro.FkCategoria,
-                Disponibilidade = novoLivro.Disponibilidade
-            };
+                var livro = new Livro
+                {
+                    Titulo = novoLivro.Titulo,
+                    Autor = novoLivro.Autor,
+                    AnoPublicacao = novoLivro.AnoPublicacao,
+                    FkCategoria = novoLivro.FkCategoria,
+                    Disponibilidade = novoLivro.Disponibilidade
+                };
 
-            // Chama o método de adicionar do repositório, passando a foto como parâmetro
-            _livroRepo.Add(livro);
+                _livroRepo.Add(livro);
 
-            // Cria um objeto anônimo para retornar
-            var resultado = new
+                var resultado = new
+                {
+                    Mensagem = "Livro cadastrado com sucesso!",
+                    Titulo = livro.Titulo,
+                    Autor = livro.Autor,
+                    AnoPublicacao = livro.AnoPublicacao,
+                    FkCategoria = livro.FkCategoria,
+                    Disponibilidade = livro.Disponibilidade
+                };
+
+                return Ok(resultado);
+            }
+            catch (Exception ex)
             {
-                Mensagem = "Livro cadastrado com sucesso!",
-                Titulo = livro.Titulo,
-                Autor = livro.Autor,
-                AnoPublicacao = livro.AnoPublicacao,
-                FkCategoria = livro.FkCategoria,
-                Disponibilidade = livro.Disponibilidade
-            };
-
-            // Retorna o objeto com status 200 OK
-            return Ok(resultado);
+                return StatusCode(500, new { Mensagem = "Erro ao cadastrar livro.", Erro = ex.Message });
+            }
         }
 
         // PUT api/<LivroController>/5
         [HttpPut("{id}")]
         public ActionResult<object> Put(int id, [FromForm] LivroDto livroAtualizado)
         {
-            // Busca o livro existente pelo Id
-            var livroExistente = _livroRepo.GetById(id);
-
-            // Verifica se o livro foi encontrado
-            if (livroExistente == null)
+            try
             {
-                return NotFound(new { Mensagem = "Livro não encontrado." });
+                var livroExistente = _livroRepo.GetById(id);
+
+                if (livroExistente == null)
+                {
+                    return NotFound(new { Mensagem = "Livro não encontrado." });
+                }
+
+                livroExistente.Titulo = livroAtualizado.Titulo;
+                livroExistente.Autor = livroAtualizado.Autor;
+                livroExistente.AnoPublicacao = livroAtualizado.AnoPublicacao;
+                livroExistente.FkCategoria = livroAtualizado.FkCategoria;
+                livroExistente.Disponibilidade = livroAtualizado.Disponibilidade;
+
+                _livroRepo.Update(livroExistente);
+
+                var resultado = new
+                {
+                    Mensagem = "Livro atualizado com sucesso!",
+                    Titulo = livroExistente.Titulo,
+                    Autor = livroExistente.Autor,
+                    AnoPublicacao = livroExistente.AnoPublicacao,
+                    FkCategoria = livroExistente.FkCategoria,
+                    Disponibilidade = livroExistente.Disponibilidade
+                };
+
+                return Ok(resultado);
             }
-
-            // Atualiza os dados do livro existente com os valores do objeto recebido
-            livroExistente.Titulo = livroAtualizado.Titulo;
-            livroExistente.Autor = livroAtualizado.Autor;
-            livroExistente.AnoPublicacao = livroAtualizado.AnoPublicacao;
-            livroExistente.FkCategoria = livroAtualizado.FkCategoria;
-            livroExistente.Disponibilidade = livroAtualizado.Disponibilidade;
-
-            // Chama o método de atualização do repositório, passando a nova foto
-            _livroRepo.Update(livroExistente);
-
-
-            // Cria um objeto anônimo para retornar
-            var resultado = new
+            catch (Exception ex)
             {
-                Mensagem = "Membro atualizado com sucesso!",
-                Titulo = livroExistente.Titulo,
-                Autor = livroExistente.Autor,
-                AnoPublicacao = livroExistente.AnoPublicacao,
-                FkCategoria = livroExistente.FkCategoria,
-                Disponibilidade = livroExistente.Disponibilidade
-        };
-
-            // Retorna o objeto com status 200 OK
-            return Ok(resultado);
+                return StatusCode(500, new { Mensagem = "Erro ao atualizar livro.", Erro = ex.Message });
+            }
         }
 
         // DELETE api/<LivroController>/5
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            // Busca o livro existente pelo Id
-            var livroExistente = _livroRepo.GetById(id);
-
-            // Verifica se o livro foi encontrado
-            if (livroExistente == null)
+            try
             {
-                return NotFound(new { Mensagem = "Livro não encontrado." });
+                var livroExistente = _livroRepo.GetById(id);
+
+                if (livroExistente == null)
+                {
+                    return NotFound(new { Mensagem = "Livro não encontrado." });
+                }
+
+                _livroRepo.Delete(id);
+
+                var resultado = new
+                {
+                    Mensagem = "Livro excluído com sucesso!",
+                    Titulo = livroExistente.Titulo,
+                    Autor = livroExistente.Autor,
+                    AnoPublicacao = livroExistente.AnoPublicacao,
+                    FkCategoria = livroExistente.FkCategoria,
+                    Disponibilidade = livroExistente.Disponibilidade
+                };
+
+                return Ok(resultado);
             }
-
-            // Chama o método de exclusão do repositório
-            _livroRepo.Delete(id);
-
-            // Cria um objeto anônimo para retornar
-            var resultado = new
+            catch (Exception ex)
             {
-                Mensagem = "Livro excluído com sucesso!",
-                Titulo = livroExistente.Titulo,
-                Autor = livroExistente.Autor,
-                AnoPublicacao = livroExistente.AnoPublicacao,
-                FkCategoria = livroExistente.FkCategoria,
-                Disponibilidade = livroExistente.Disponibilidade
-            };
-
-            // Retorna o objeto com status 200 OK
-            return Ok(resultado);
+                return StatusCode(500, new { Mensagem = "Erro ao excluir livro.", Erro = ex.Message });
+            }
         }
     }
 }
